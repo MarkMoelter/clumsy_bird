@@ -38,6 +38,16 @@ module "vpc" {
   }
 }
 
+module "s3_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+  version = 4.11
+
+  bucket_prefix = "${var.prefix}-s3-${var.environment}"
+  acl    = "private"
+  versioning = {
+    enabled = true
+  }
+}
 
 resource "aws_security_group" "clumsy_bird" {
   description = "Clumsy Bird Security Group Access"
